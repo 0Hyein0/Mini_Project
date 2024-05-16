@@ -14,7 +14,8 @@ public class MainPageController implements Controller
 	{
 		ModelAndView mav = new ModelAndView();
 		
-		mav.setViewName("/WEB-INF/view/MainPage.jsp");
+		//mav.setViewName("/WEB-INF/view/MainPage.jsp");
+		mav.setViewName("/WEB-INF/view/StockList.jsp");
 		
 		return mav;
 	}
