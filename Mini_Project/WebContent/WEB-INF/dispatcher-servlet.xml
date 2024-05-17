@@ -13,8 +13,9 @@
 	<!-- ──────────────────── [메인페이지] ─────────────────── -->
 	<bean name="/stock.do" class="com.stock.controller.MainPageController"></bean>
 	
+	<bean name="/stock.list" class="com.stock.controller.StockListController"></bean>
 	
-	
+		
 	<!-- ③ mybatis 등록 과정에서 생겨나는 추가 코드 『2』 -->
 	<!-- ※ mybatis 를 사용하기 위한 환경 설정 추가하는 과정에서 -->
 	<!--    필요한 dataSource 를 사용하기 위한 환경 설정 추가 -->
@@ -36,7 +37,7 @@
 		
 		<!-- ⑤ 매퍼 파일을 작성하고 와서 다시 추가 -->
 		<!-- value 구성 과정 check~!!! -->
-		<property name="mapperLocations" value="classpath:com/stock/mapper/*.xml"></property>
+		<property name="mapperLocations" value="classpath:com/stock/model/mapper/*.xml"></property>
 		<!-- 인터페이스에 객체화 시켜서 돌아가게하겠다~ 라는 의미의 코드 -->
 	</bean>
 	

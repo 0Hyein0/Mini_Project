@@ -2,76 +2,159 @@ package com.stock.model;
 
 public class StockListDTO
 {
-	private String prCode, prName, prCount, waCode, waName, acCode, acName;
+	private String pr_no, pr_code, pr_name, pr_count, pr_date
+	, wa_code, wa_name, ac_code, ac_name
+	, in_count, out_count, in_date, out_date
+	, total_in, total_out;
 
-	public String getPrCode()
+	public String getPr_no()
 	{
-		return prCode;
+		return pr_no;
 	}
 
-	public void setPrCode(String prCode)
+	public void setPr_no(String pr_no)
 	{
-		this.prCode = prCode;
+		this.pr_no = pr_no;
 	}
 
-	public String getPrName()
+	public String getPr_code()
 	{
-		return prName;
+		return pr_code;
 	}
 
-	public void setPrName(String prName)
+	public void setPr_code(String pr_code)
 	{
-		this.prName = prName;
+		this.pr_code = pr_code;
 	}
 
-	public String getPrCount()
+	public String getPr_name()
 	{
-		return prCount;
+		return pr_name;
 	}
 
-	public void setPrCount(String prCount)
+	public void setPr_name(String pr_name)
 	{
-		this.prCount = prCount;
+		this.pr_name = pr_name;
 	}
 
-	public String getWaCode()
+	public String getPr_count()
 	{
-		return waCode;
+		return pr_count;
 	}
 
-	public void setWaCode(String waCode)
+	public void setPr_count(String pr_count)
 	{
-		this.waCode = waCode;
+		this.pr_count = pr_count;
+	}
+	
+	public String getPr_date()
+	{
+		return pr_date;
 	}
 
-	public String getWaName()
+	public void setPr_date(String pr_date)
 	{
-		return waName;
+		this.pr_date = pr_date;
 	}
 
-	public void setWaName(String waName)
+	public String getWa_code()
 	{
-		this.waName = waName;
+		return wa_code;
 	}
 
-	public String getAcCode()
+	public void setWa_code(String wa_code)
 	{
-		return acCode;
+		this.wa_code = wa_code;
 	}
 
-	public void setAcCode(String acCode)
+	public String getWa_name()
 	{
-		this.acCode = acCode;
+		return wa_name;
 	}
 
-	public String getAcName()
+	public void setWa_name(String wa_name)
 	{
-		return acName;
+		this.wa_name = wa_name;
 	}
 
-	public void setAcName(String acName)
+	public String getAc_code()
 	{
-		this.acName = acName;
+		return ac_code;
+	}
+
+	public void setAc_code(String ac_code)
+	{
+		this.ac_code = ac_code;
+	}
+
+	public String getAc_name()
+	{
+		return ac_name;
+	}
+
+	public void setAc_name(String ac_name)
+	{
+		this.ac_name = ac_name;
+	}
+
+	public String getIn_count()
+	{
+		return in_count;
+	}
+
+	public void setIn_count(String in_count)
+	{
+		this.in_count = in_count;
+	}
+
+	public String getOut_count()
+	{
+		return out_count;
+	}
+
+	public void setOut_count(String out_count)
+	{
+		this.out_count = out_count;
+	}
+
+	public String getIn_date()
+	{
+		return in_date;
+	}
+
+	public void setIn_date(String in_date)
+	{
+		this.in_date = in_date;
+	}
+
+	public String getOut_date()
+	{
+		return out_date;
+	}
+
+	public void setOut_date(String out_date)
+	{
+		this.out_date = out_date;
+	}
+
+	public String getTotal_in()
+	{
+		return total_in;
+	}
+
+	public void setTotal_in(String total_in)
+	{
+		this.total_in = total_in;
+	}
+
+	public String getTotal_out()
+	{
+		return total_out;
+	}
+
+	public void setTotal_out(String total_out)
+	{
+		this.total_out = total_out;
 	}
 	
 	

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stock.model.IStockListDAO">
+
+	<select id="stockList" resultType="com.stock.model.StockListDTO">
+		SELECT P.PR_NO as PR_NO, P.PR_CODE AS PR_CODE, P.PR_NAME AS PR_NAME, TO_CHAR(PR_DATE, 'YYYY-MM-DD') AS PR_DATE,
+       (SELECT NVL(SUM(IN_QUANTITY), 0)
+        FROM (
+            SELECT DISTINCT IN_CODE, PR_NO, IN_DATE, IN_QUANTITY
+            FROM IN_DATA
+        ) DISTINCT_IN
+        WHERE DISTINCT_IN.PR_NO = P.PR_NO) AS TOTAL_IN,
+       (SELECT NVL(SUM(OUT_QUANTITY), 0)
+        FROM (
+            SELECT DISTINCT OUT_CODE, PR_NO, OUT_DATE, OUT_QUANTITY
+            FROM OUT_DATA
+        ) DISTINCT_OUT
+        WHERE DISTINCT_OUT.PR_NO = P.PR_NO) AS TOTAL_OUT
+	FROM PRODUCTS P
+	
+	</select>
+
+
+</mapper>
