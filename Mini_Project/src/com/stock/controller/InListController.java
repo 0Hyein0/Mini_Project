@@ -1,5 +1,8 @@
 package com.stock.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,11 +19,14 @@ public class InListController
 	private SqlSession sqlsession;
 
 	@RequestMapping(value="/inlist.do", method=RequestMethod.GET)
-	public String stockList(ModelMap model) 
+	public String stockList(HttpServletRequest request, ModelMap model) 
 	{
+		HttpSession session = request.getSession();
+		String ac_code = (String)session.getAttribute("ac_code");
+		
 		IStockListDAO dao = sqlsession.getMapper(IStockListDAO.class);
 		
-		model.addAttribute("inList", dao.inList());
+		model.addAttribute("inList", dao.inList(ac_code));
 		
 		return "/WEB-INF/view/InList.jsp";		
 	}

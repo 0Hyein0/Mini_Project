@@ -3,6 +3,8 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	String cp = request.getContextPath();
+	
+	String ac_code = (String)session.getAttribute("ac_code");
 %>
 <!DOCTYPE html>
 <html>

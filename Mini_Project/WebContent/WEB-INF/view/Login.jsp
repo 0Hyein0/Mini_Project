@@ -24,7 +24,7 @@
 			<div id="login_div" >
 				<div class="login_box">
 					<span>재고 관리 시스템</span>
-					<form action="login.do" method="get" id="loginForm">
+					<form action="login.do" method="post" id="loginForm">
 						<table>
 							<tr>
 								<td>

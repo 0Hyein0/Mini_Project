@@ -5,7 +5,7 @@
 <mapper namespace="com.stock.model.IAccountDAO">
 
 	<select id="login" resultType="String">
-		SELECT AC_NAME
+		SELECT AC_CODE
 		FROM ACCOUNTS
 		WHERE AC_CODE = #{ac_code}
 		AND #{ac_pw} = CRYPTPACK.DECRYPT(AC_PW, #{ac_pw})
