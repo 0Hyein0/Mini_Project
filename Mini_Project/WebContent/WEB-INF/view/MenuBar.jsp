@@ -6,7 +6,7 @@
 %>
 <div class="navbar-expand-lg bg-body-tertiary" style="height: 60px; display: flex; justify-content: space-between; align-items: center; padding-left: 50px; padding-right: 50px;">
 	<div>
-		<a style="font-size: 30px;" href="#">재고 관리 프로그램</a>
+		<a style="font-size: 30px;" href="stock.do">재고 관리 프로그램</a>
 	</div>
 	<div>
 		<button>
@@ -48,13 +48,13 @@
         </a>
       </li>
       <li>
-        <a href="#" class="nav-link link-body-emphasis">
-          입고 등록
+        <a href="inlist.do" class="nav-link link-body-emphasis">
+          입고 관리
         </a>
       </li>
       <li>
-        <a href="#" class="nav-link link-body-emphasis">
-          출고 등록
+        <a href="outlist.do" class="nav-link link-body-emphasis">
+          출고 관리
         </a>
       </li>
     </ul>

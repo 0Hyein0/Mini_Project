@@ -4,8 +4,9 @@ public class StockListDTO
 {
 	private String pr_no, pr_code, pr_name, pr_count, pr_date
 	, wa_code, wa_name, ac_code, ac_name
-	, in_count, out_count, in_date, out_date
-	, total_in, total_out;
+	, in_quantity, out_quantity, in_date, out_date, in_code, out_code
+	, total_in, total_out
+	, in_description, out_description;
 
 	public String getPr_no()
 	{
@@ -97,24 +98,24 @@ public class StockListDTO
 		this.ac_name = ac_name;
 	}
 
-	public String getIn_count()
+	public String getIn_quantity()
 	{
-		return in_count;
+		return in_quantity;
 	}
 
-	public void setIn_count(String in_count)
+	public void setIn_quantity(String in_quantity)
 	{
-		this.in_count = in_count;
+		this.in_quantity = in_quantity;
 	}
 
-	public String getOut_count()
+	public String getOut_quantity()
 	{
-		return out_count;
+		return out_quantity;
 	}
 
-	public void setOut_count(String out_count)
+	public void setOut_quantity(String out_quantity)
 	{
-		this.out_count = out_count;
+		this.out_quantity = out_quantity;
 	}
 
 	public String getIn_date()
@@ -156,6 +157,44 @@ public class StockListDTO
 	{
 		this.total_out = total_out;
 	}
-	
-	
+
+	public String getIn_description()
+	{
+		return in_description;
+	}
+
+	public void setIn_description(String in_description)
+	{
+		this.in_description = in_description;
+	}
+
+	public String getOut_description()
+	{
+		return out_description;
+	}
+
+	public void setOut_description(String out_description)
+	{
+		this.out_description = out_description;
+	}
+
+	public String getIn_code()
+	{
+		return in_code;
+	}
+
+	public void setIn_code(String in_code)
+	{
+		this.in_code = in_code;
+	}
+
+	public String getOut_code()
+	{
+		return out_code;
+	}
+
+	public void setOut_code(String out_code)
+	{
+		this.out_code = out_code;
+	}
 }

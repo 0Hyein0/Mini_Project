@@ -8,14 +8,11 @@
 				http://www.springframework.org/schema/context
 				http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<context:component-scan base-package="org.springframework.samples.petclinic.web" />
-	<context:component-scan base-package="com.test.mybatis" />
+	<context:component-scan base-package="com.stock" />
 	
 	<!-- ──────────────────── [메인페이지] ─────────────────── -->
-	<bean name="/stock.do" class="com.stock.controller.MainPageController"></bean>
 	
-	<bean name="/stock.list" class="com.stock.controller.StockListController"></bean>
 	
-		
 	<!-- ③ mybatis 등록 과정에서 생겨나는 추가 코드 『2』 -->
 	<!-- ※ mybatis 를 사용하기 위한 환경 설정 추가하는 과정에서 -->
 	<!--    필요한 dataSource 를 사용하기 위한 환경 설정 추가 -->
