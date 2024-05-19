@@ -30,4 +30,32 @@ public class StockListController
 		
 		return "/WEB-INF/view/StockList.jsp";		
 	}
+	
+	@RequestMapping(value="/inlist.do", method=RequestMethod.GET)
+	public String inList(HttpServletRequest request, ModelMap model) 
+	{
+		HttpSession session = request.getSession();
+		String ac_code = (String)session.getAttribute("ac_code");
+		
+		IStockListDAO dao = sqlsession.getMapper(IStockListDAO.class);
+		
+		model.addAttribute("inList", dao.inList(ac_code));
+		
+		return "/WEB-INF/view/InList.jsp";		
+	}
+	
+	@RequestMapping(value="/outlist.do", method=RequestMethod.GET)
+	public String outList(HttpServletRequest request, ModelMap model) 
+	{
+		HttpSession session = request.getSession();
+		String ac_code = (String)session.getAttribute("ac_code");
+		
+		IStockListDAO dao = sqlsession.getMapper(IStockListDAO.class);
+		
+		model.addAttribute("outList", dao.outList(ac_code));
+		
+		return "/WEB-INF/view/OutList.jsp";		
+	}
+	
+	
 }

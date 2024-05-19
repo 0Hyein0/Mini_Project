@@ -26,6 +26,7 @@
 	
 	<section>
 		<div id="content">
+		
 	메인페이지
 		</div>
 	</section>
