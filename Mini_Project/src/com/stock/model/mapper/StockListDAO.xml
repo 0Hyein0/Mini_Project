@@ -39,7 +39,6 @@
 		]]>
 	</select>
 	
-	
 	<select id="inList" resultType="com.stock.model.StockListDTO">
 		<![CDATA[
 			SELECT I.IN_CODE AS IN_CODE, I.IN_QUANTITY AS IN_QUANTITY, TO_CHAR(I.IN_DATE, 'YYYY-MM-DD') AS IN_DATE, I.IN_DESCRIPTION AS IN_DESCRIPTION
@@ -66,6 +65,20 @@
 			AND O.OUT_DATE <= SYSDATE
 			ORDER BY O.OUT_DATE DESC
 		]]>
+	</select>
+	
+	<select id="waList" resultType="com.stock.model.StockListDTO">
+		SELECT WA_CODE, WA_NAME
+		FROM WAREHOUSES
+		WHERE AC_CODE = #{ac_code}
+	</select>
+	
+	<select id="prList" resultType="com.stock.model.StockListDTO">
+		SELECT DISTINCT P.PR_CODE, P.PR_NAME
+		FROM PRODUCTS P JOIN IN_DATA I ON P.PR_CODE = I.PR_CODE
+		JOIN WAREHOUSES W ON I.WA_CODE = W.WA_CODE
+		JOIN ACCOUNTS A ON W.AC_CODE = A.AC_CODE
+		WHERE A.AC_CODE = #{ac_code}
 	</select>
 
 

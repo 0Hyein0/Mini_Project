@@ -58,7 +58,7 @@
 		<div id="content">
 			<div id="content_div">
 				<div id="search_div">
-					<div>
+					<div style="width: 20%;">
 						[품번]
 						<select id="prCode" class="form-control">
 							<option selected="selected">-전체 품번-</option>
@@ -67,7 +67,7 @@
 							<%} %>
 						</select>
 					</div>
-					<div>
+					<div style="width: 20%;">
 						[창고]
 						<select id="waName" class="form-control">
 							<option selected="selected">-전체 창고-</option>
@@ -76,11 +76,11 @@
 							<%} %>
 						</select>
 					</div>
-					<div>
+					<div style="width: 20%;">
 						[조회 기준 일자]<br>
 						<input type="text" id="datepicker" class="form-control">
 					</div>
-					<div>
+					<div style="width: 20%;">
 						[정렬]
 						<select id="sorting" class="form-control">
 							<option>기본</option>

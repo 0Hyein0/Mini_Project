@@ -9,20 +9,6 @@
 	String cp = request.getContextPath();
 	
 	String ac_code = (String)session.getAttribute("ac_code");
-
-	// select option에 중복 제거
-	List<StockListDTO> inList = (List<StockListDTO>)request.getAttribute("inList");
-	
-	// 품번 중복 제거
-	Set<String> uniquePrCode = new LinkedHashSet<>();
-	for(StockListDTO in : inList)
-		uniquePrCode.add("[" + in.getPr_code() + "] " + in.getPr_name());
-	
-	// 창고 중복 제거
-	Set<String> uniqueWaName = new LinkedHashSet<>();
-	for(StockListDTO in : inList)
-		uniqueWaName.add(in.getWa_name());
-		
 %>
 <!DOCTYPE html>
 <html>
@@ -56,17 +42,6 @@
   } );
 </script>
 
-<script>
-	$(function()
-	{
-		$("#addBtn").click(function()
-		{
-			for
-		})
-	})
-
-</script>
-
 
 </head>
 <body>
@@ -93,44 +68,44 @@
 				        <h1 class="modal-title fs-5" id="exampleModalLabel">입고 등록</h1>
 				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				      </div>
-		       		  <form action="indatainsert.do?ac_code=<%=ac_code %>" id="inDataForm" >
+		       		  <form action="indatainsert.do" id="inDataForm" >
 				      	<div class="modal-body">
 					        <div>
 					        	<table>
 					        		<tr>
 					        			<td>
-						        			<label for="recipient-name" class="col-form-label">입고 품목</label>
-								            <select id="prCode" class="form-control">
+						        			입고 품목
+								            <select id="prCode" class="form-control" name="pr_code">
 												<option selected="selected">-품목 선택-</option>
-												<%for (String prCode : uniquePrCode) {%>
-													<option value=""><%=prCode %></option>
-												<%} %>
+												<c:forEach var="pr" items="${prList }">
+													<option value="${pr.pr_code }">[${pr.pr_code}] ${pr.pr_name}</option>
+												</c:forEach>
 											</select>
 					        			</td>
 					        			<td>
-					        				<label for="recipient-name" class="col-form-label">입고 창고</label>
-								            <select id="waName" class="form-control">
+					        				입고 창고
+								            <select id="waName" class="form-control" name="wa_code">
 												<option selected="selected">-입고 창고 선택-</option>
-												<%for (String waName : uniqueWaName) {%>
-													<option value=""><%=waName %></option>	
-												<%} %>
+												<c:forEach var="wa" items="${waList }">
+													<option value="${wa.wa_code }">${wa.wa_name}</option>
+												</c:forEach>
 											</select>
 					        			</td>
 					        		</tr>
 					        		<tr>
 					        			<td>
-					        				<label for="recipient-name" class="col-form-label">입고 수량</label>
-					            			<input type="text" class="form-control" id="inCount" placeholder="입고 수량을 입력해주세요">
+					        				입고 수량
+					            			<input type="text" class="form-control" id="inQuantity" name="in_quantity" placeholder="입고 수량을 입력해주세요">
 					        			</td>
 					        			<td>
-					        				<label for="recipient-name" class="col-form-label">입고(예정) 일자</label>
-					            			<input type="text" class="form-control" id="datepicker3">
+					        				입고(예정) 일자
+					            			<input type="text" class="form-control" id="datepicker3" name="in_date">
 					        			</td>
 					        		</tr>
 					        		<tr>
 					        			<td colspan="2">
-					        				<label for="message-text" class="col-form-label">비고란</label>
-					            			<textarea class="form-control" id="inDescription"></textarea>
+					        				비고
+					            			<textarea class="form-control" id="inDescription" name="in_description"></textarea>
 					        			</td>
 					        		</tr>
 					        	</table>
@@ -145,29 +120,29 @@
 				</div>	
 			
 				<div id="search_div">
-					<div>
+					<div style="width: 20%;">
 						[품번]
 						<select id="prCode" class="form-control">
 							<option selected="selected">-전체 품번-</option>
-							<%for (String prCode : uniquePrCode) {%>
-								<option><%=prCode %></option>
-							<%} %>
+							<c:forEach var="pr" items="${prList }">
+								<option value="${pr.pr_code }">[${pr.pr_code}] ${pr.pr_name}</option>
+							</c:forEach>
 						</select>
 					</div>
-					<div>
+					<div style="width: 20%;">
 						[입고 창고]
 						<select id="waName" class="form-control">
 							<option selected="selected">-전체 창고-</option>
-							<%for (String waName : uniqueWaName) {%>
-								<option><%=waName %></option>	
-							<%} %>
+							<c:forEach var="wa" items="${waList }">
+								<option value="${wa.wa_code }">${wa.wa_name}</option>
+							</c:forEach>
 						</select>
 					</div>
-					<div>
+					<div style="width: 20%;">
 						[조회 시작 일자]<br>
 						<input type="text" id="datepicker1" class="form-control">
 					</div>
-					<div>
+					<div style="width: 20%;">
 						[조회 종료 일자]<br>
 						<input type="text" id="datepicker2" class="form-control">
 					</div>

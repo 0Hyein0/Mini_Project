@@ -42,6 +42,8 @@ public class StockListController
 		IStockListDAO dao = sqlsession.getMapper(IStockListDAO.class);
 		
 		model.addAttribute("inList", dao.inList(ac_code));
+		model.addAttribute("waList", dao.waList(ac_code));
+		model.addAttribute("prList", dao.prList(ac_code));
 		
 		return "/WEB-INF/view/InList.jsp";		
 	}
@@ -56,6 +58,8 @@ public class StockListController
 		IStockListDAO dao = sqlsession.getMapper(IStockListDAO.class);
 		
 		model.addAttribute("outList", dao.outList(ac_code));
+		model.addAttribute("waList", dao.waList(ac_code));
+		model.addAttribute("prList", dao.prList(ac_code));
 		
 		return "/WEB-INF/view/OutList.jsp";		
 	}

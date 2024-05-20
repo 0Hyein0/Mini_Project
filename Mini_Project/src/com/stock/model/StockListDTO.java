@@ -2,11 +2,12 @@ package com.stock.model;
 
 public class StockListDTO
 {
-	private String pr_no, pr_code, pr_name, pr_count, pr_description
+	private String pr_no, pr_code, pr_name, pr_description
 	, wa_code, wa_name, ac_code, ac_name
-	, in_quantity, out_quantity, in_date, out_date, in_code, out_code
-	, total_in, total_out
+	, in_date, out_date, in_code, out_code
 	, in_description, out_description;
+	
+	private int pr_count, in_quantity, out_quantity, total_in, total_out;
 
 	public String getPr_no()
 	{
@@ -38,12 +39,12 @@ public class StockListDTO
 		this.pr_name = pr_name;
 	}
 
-	public String getPr_count()
+	public int getPr_count()
 	{
 		return pr_count;
 	}
 
-	public void setPr_count(String pr_count)
+	public void setPr_count(int pr_count)
 	{
 		this.pr_count = pr_count;
 	}
@@ -88,22 +89,22 @@ public class StockListDTO
 		this.ac_name = ac_name;
 	}
 
-	public String getIn_quantity()
+	public int getIn_quantity()
 	{
 		return in_quantity;
 	}
 
-	public void setIn_quantity(String in_quantity)
+	public void setIn_quantity(int in_quantity)
 	{
 		this.in_quantity = in_quantity;
 	}
 
-	public String getOut_quantity()
+	public int getOut_quantity()
 	{
 		return out_quantity;
 	}
 
-	public void setOut_quantity(String out_quantity)
+	public void setOut_quantity(int out_quantity)
 	{
 		this.out_quantity = out_quantity;
 	}
@@ -128,22 +129,22 @@ public class StockListDTO
 		this.out_date = out_date;
 	}
 
-	public String getTotal_in()
+	public int getTotal_in()
 	{
 		return total_in;
 	}
 
-	public void setTotal_in(String total_in)
+	public void setTotal_in(int total_in)
 	{
 		this.total_in = total_in;
 	}
 
-	public String getTotal_out()
+	public int getTotal_out()
 	{
 		return total_out;
 	}
 
-	public void setTotal_out(String total_out)
+	public void setTotal_out(int total_out)
 	{
 		this.total_out = total_out;
 	}
