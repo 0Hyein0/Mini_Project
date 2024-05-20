@@ -18,6 +18,7 @@ public class StockListController
 	@Autowired
 	private SqlSession sqlsession;
 
+	// 재고 조회
 	@RequestMapping(value="/stocklist.do", method=RequestMethod.GET)
 	public String stockList(HttpServletRequest request, ModelMap model) 
 	{
@@ -31,6 +32,7 @@ public class StockListController
 		return "/WEB-INF/view/StockList.jsp";		
 	}
 	
+	// 입고 내역 조회
 	@RequestMapping(value="/inlist.do", method=RequestMethod.GET)
 	public String inList(HttpServletRequest request, ModelMap model) 
 	{
@@ -44,6 +46,7 @@ public class StockListController
 		return "/WEB-INF/view/InList.jsp";		
 	}
 	
+	// 출고 내역 조회
 	@RequestMapping(value="/outlist.do", method=RequestMethod.GET)
 	public String outList(HttpServletRequest request, ModelMap model) 
 	{
@@ -56,6 +59,4 @@ public class StockListController
 		
 		return "/WEB-INF/view/OutList.jsp";		
 	}
-	
-	
 }

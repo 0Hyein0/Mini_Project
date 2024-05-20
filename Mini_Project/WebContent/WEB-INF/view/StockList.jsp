@@ -1,3 +1,7 @@
+<%@page import="java.util.Set"%>
+<%@page import="java.util.LinkedHashSet"%>
+<%@page import="com.stock.model.StockListDTO"%>
+<%@page import="java.util.List"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
@@ -5,6 +9,20 @@
 	String cp = request.getContextPath();
 	
 	String ac_code = (String)session.getAttribute("ac_code");
+	
+	// select option에 중복 제거
+	List<StockListDTO> stockList = (List<StockListDTO>)request.getAttribute("stockList");
+	
+	// 품번 중복 제거
+	Set<String> uniquePrCode = new LinkedHashSet<>();
+	for(StockListDTO stock : stockList)
+		uniquePrCode.add("[" + stock.getPr_code() + "] " + stock.getPr_name());
+	
+	// 창고 중복 제거
+	Set<String> uniqueWaName = new LinkedHashSet<>();
+	for(StockListDTO stock : stockList)
+		uniqueWaName.add(stock.getWa_name());
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -22,14 +40,12 @@
 <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/i18n/jquery-ui-i18n.min.js"></script>
 
-
-
 <script>
   $( function() {
     $.datepicker.setDefaults($.datepicker.regional['ko']);
     $( "#datepicker" ).datepicker();
   } );
-  </script>
+</script>
 
 </head>
 <body>
@@ -46,22 +62,18 @@
 						[품번]
 						<select id="prCode" class="form-control">
 							<option selected="selected">-전체 품번-</option>
-							<c:forEach var="stockList" items="${stockList }">
-								<option>
-									<c:out value="${stockList.pr_code} ${stockList.pr_name}"></c:out>
-								</option>
-							</c:forEach>
+							<%for (String prCode : uniquePrCode) {%>
+								<option><%=prCode %></option>
+							<%} %>
 						</select>
 					</div>
 					<div>
 						[창고]
 						<select id="waName" class="form-control">
 							<option selected="selected">-전체 창고-</option>
-							<c:forEach var="stockList" items="${stockList }">
-								<option>
-									<c:out value="${stockList.wa_name }"></c:out>
-								</option>
-							</c:forEach>
+							<%for (String waName : uniqueWaName) {%>
+								<option><%=waName %></option>	
+							<%} %>
 						</select>
 					</div>
 					<div>
@@ -85,10 +97,8 @@
 				<table class="table">
 					<thead>
 				    	<tr>
-				    		<th scope="col">관리코드</th>
 				      		<th scope="col">품번</th>
 					      	<th scope="col">품명</th>
-					      	<th scope="col">유통기한</th>
 					      	<th scope="col">입고 수량</th>
 					      	<th scope="col">출고 수량</th>
 					      	<th scope="col">재고 수량</th>
@@ -99,19 +109,8 @@
 				  	
 				  		<c:forEach var="stockList" items="${stockList }">
 				   		<tr>
-			      			<td>${stockList.pr_no }</td>
 			      			<td>${stockList.pr_code }</td>
 			      			<td>${stockList.pr_name }</td>
-			      			<td>
-			      				<c:choose>
-			      					<c:when test="${stockList.pr_date =='9999-12-31'}">
-										-
-			      					</c:when>
-									<c:otherwise>
-				      					${stockList.pr_date }
-									</c:otherwise>	      				
-			      				</c:choose>
-			      			</td>
 			      			<td>${stockList.total_in }</td>
 			      			<td>${stockList.total_out }</td>
 			      			<td>${stockList.total_in - stockList.total_out }</td>
