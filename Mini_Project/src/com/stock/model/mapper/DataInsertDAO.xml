@@ -4,11 +4,11 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.stock.model.IDataInsertDAO">
 
-	<select id="inAdd" resultType="com.stock.model.StockListDTO">
+	<insert id="inAdd">
 		INSERT INTO IN_DATA(IN_CODE, IN_QUANTITY, IN_DATE, IN_DESCRIPTION, WA_CODE, PR_CODE)
 		VALUES(('IN' || LPAD(TO_CHAR(IN_SEQ.NEXTVAL), 6, '0')), #{in_quantity}, TO_DATE(#{in_date}, 'YYYY-MM-DD')
 		, #{in_description}, #{wa_code}, #{pr_code})
-	</select>
+	</insert>
 	
 	<select id="waList" resultType="com.stock.model.StockListDTO">
 		<![CDATA[
@@ -52,5 +52,13 @@
 			AND W.WA_CODE = #{param3}
 		]]>
 	</select>
+	
+	<insert id="outAdd">
+		call PRC_OUT_INSERT(#{out_quantity, javaType=Integer,jdbcType=NUMERIC, mode=IN} 
+						  , #{out_date, javaType=String, jdbcType=VARCHAR, mode=IN}
+						  , #{out_description, javaType=String, jdbcType=VARCHAR, mode=IN}
+						  , #{wa_code, javaType=String, jdbcType=VARCHAR, mode=IN}
+						  , #{pr_code, javaType=String, jdbcType=VARCHAR, mode=IN})
+	</insert>
 	
 </mapper>

@@ -90,8 +90,6 @@
 		, data: {pr_code: prCode, ac_code: acCode, wa_code: waCode}
 		, success: function (args)
 		{
-			
-			
 			$("#outQuantity").attr("placeholder", "출고 가능 수량 : "+ args);
 		}
 		,error: function(error) 
@@ -128,7 +126,7 @@
 				        <h1 class="modal-title fs-5" id="exampleModalLabel">출고 등록</h1>
 				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				      </div>
-		       		  <form action="indatainsert.do" id="inDataForm" >
+		       		  <form action="outdatainsert.do" id="outDataForm" >
 				      	<div class="modal-body">
 					        <div>
 					        	<table>
@@ -162,7 +160,7 @@
 					        		<tr>
 					        			<td colspan="2">
 					        				비고
-					            			<textarea class="form-control" id="inDescription" name="out_description"></textarea>
+					            			<textarea class="form-control" id="outDescription" name="out_description"></textarea>
 					        			</td>
 					        		</tr>
 					        	</table>

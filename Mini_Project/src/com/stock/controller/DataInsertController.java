@@ -22,7 +22,7 @@ public class DataInsertController
 	@Autowired
 	private SqlSession sqlsession;
 	
-	// 재고 조회
+	// 입고 등록
 	@RequestMapping(value="/indatainsert.do", method=RequestMethod.GET)
 	public String inAdd(StockListDTO dto
 			, @Param("pr_code") String pr_code, @Param("wa_code")String wa_code
@@ -63,6 +63,21 @@ public class DataInsertController
 		model.addAttribute("maxQuantity", maxQuantity);
 		
 		return "/WEB-INF/view/MaxOutQuantity_ajax.jsp";
+	}
+	
+	// 출고 등록
+	@RequestMapping(value="/outdatainsert.do", method=RequestMethod.GET)
+	public String outAdd(StockListDTO dto
+			, @Param("pr_code") String pr_code, @Param("wa_code")String wa_code
+			, @Param("out_quantity")Integer in_quantity, @Param("out_date")String in_date
+			, @Param("out_description")String in_description) 
+	{
+		
+		IDataInsertDAO dao = sqlsession.getMapper(IDataInsertDAO.class);
+		
+		dao.outAdd(dto);
+		
+		return "redirect:outlist.do";
 	}
 	
 }
