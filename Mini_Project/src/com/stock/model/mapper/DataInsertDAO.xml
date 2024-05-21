@@ -10,5 +10,47 @@
 		, #{in_description}, #{wa_code}, #{pr_code})
 	</select>
 	
-
+	<select id="waList" resultType="com.stock.model.StockListDTO">
+		<![CDATA[
+			SELECT DISTINCT W.WA_CODE AS WA_CODE, W.WA_NAME AS WA_NAME
+			FROM WAREHOUSES W
+			INNER JOIN 
+			(
+			    SELECT I.WA_CODE, NVL(SUM(I.IN_QUANTITY), 0) - NVL(SUM(O.OUT_QUANTITY), 0) AS STOCK
+			    FROM IN_DATA I
+			    LEFT JOIN OUT_DATA O 
+			    ON I.WA_CODE = O.WA_CODE AND I.PR_CODE = O.PR_CODE
+			    WHERE I.PR_CODE = #{param1}
+			    AND I.IN_DATE <= SYSDATE
+			    AND (O.OUT_DATE <= SYSDATE OR O.OUT_DATE IS NULL)
+			    GROUP BY I.WA_CODE
+			) STOCK_SUMMARY 
+			ON W.WA_CODE = STOCK_SUMMARY.WA_CODE
+			WHERE STOCK_SUMMARY.STOCK > 0
+			AND W.AC_CODE = #{param2}
+		]]>
+	</select>
+	
+	<select id="maxQuantity" resultType="Integer">
+		<![CDATA[
+			SELECT DISTINCT STOCK_SUMMARY.STOCK AS PR_COUNT
+			FROM WAREHOUSES W
+			INNER JOIN 
+			(
+			    SELECT I.WA_CODE, NVL(SUM(I.IN_QUANTITY), 0) - NVL(SUM(O.OUT_QUANTITY), 0) AS STOCK
+			    FROM IN_DATA I
+			    LEFT JOIN OUT_DATA O 
+			    ON I.WA_CODE = O.WA_CODE AND I.PR_CODE = O.PR_CODE
+			    WHERE I.PR_CODE = #{param1}
+			    AND I.IN_DATE <= SYSDATE
+			    AND (O.OUT_DATE <= SYSDATE OR O.OUT_DATE IS NULL)
+			    GROUP BY I.WA_CODE
+			) STOCK_SUMMARY 
+			ON W.WA_CODE = STOCK_SUMMARY.WA_CODE
+			WHERE STOCK_SUMMARY.STOCK > 0
+			AND W.AC_CODE = #{param2}
+			AND W.WA_CODE = #{param3}
+		]]>
+	</select>
+	
 </mapper>

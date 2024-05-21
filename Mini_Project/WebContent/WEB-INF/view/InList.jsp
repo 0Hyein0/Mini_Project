@@ -98,7 +98,7 @@
 					            			<input type="text" class="form-control" id="inQuantity" name="in_quantity" placeholder="입고 수량을 입력해주세요">
 					        			</td>
 					        			<td>
-					        				입고(예정) 일자
+					        				입고 일자
 					            			<input type="text" class="form-control" id="datepicker3" name="in_date">
 					        			</td>
 					        		</tr>

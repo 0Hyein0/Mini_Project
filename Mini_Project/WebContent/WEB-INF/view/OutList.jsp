@@ -29,48 +29,77 @@
   $( function() {
     $.datepicker.setDefaults($.datepicker.regional['ko']);
     $( "#datepicker1" ).datepicker();
-  } );
-  
-  $( function() {
-    $.datepicker.setDefaults($.datepicker.regional['ko']);
     $( "#datepicker2" ).datepicker();
-  } );
-  
-  $( function() {
-    $.datepicker.setDefaults($.datepicker.regional['ko']);
     $( "#datepicker3" ).datepicker();
   } );
-</script>
-<script>
-	function wardhouseChange()
+
+  	// 창고 select box의 option 동적 생성
+	function warehouseChange()
 	{
-		var prCode = $("#prCode").val();
+		var prCode = $("#prCode").val();	
+		var acCode = "<%=ac_code%>";
 		
 		$.ajax(
 		{
 		  type: "GET"
 		, url: "warehouselist.do"
-		, data: {pr_code : prCode}
+		, data: {pr_code: prCode, ac_code: acCode}
+		, dataType: "json"
 		, success: function (jsonObj)
 		{
-			var out = "<option selected='selected'>-출고 창고 선택-</option>";
 			
-			for(var idx=0; idx<jsonObj.length; idx++)
-			{
-				var wa_code = jsonObj[idx].wa_code;
-				var wa_name = jsonObj[idx].wa_name;
-				
-				out += "<option value=" + wa_code + ">" + wa_name + "</option>"; 
-			}
-			
-			$("#waName").append(out);
-		}
+			codeArray = [];
+			nameArray = [];
+            
+            for (var idx = 0; idx < jsonObj.length; idx++) 
+            {
+                var wa_code = jsonObj[idx].wa_code;
+                var wa_name = jsonObj[idx].wa_name;
+                codeArray.push(wa_code);
+                nameArray.push(wa_name);
+            }
+            
+            var waSelect = $("#waName");
+            waSelect.empty();
+            waSelect.append('<option selected="selected">-출고 창고 선택-</option>');
+            
+           for(var i=0; i<codeArray.length; i++)
+           {
+               var option = $('<option></option>').attr("value", codeArray[i]).text(nameArray[i]);
+               waSelect.append(option);
+           }
 		}
 		,error: function(error) 
 		{
-            alert(error);
+            alert("오류");
 		}
-	});
+		});
+	}
+  	
+	// 수량 input의 placeholder 동적 생성
+	function maxQuantityChange()
+	{
+		var prCode = $("#prCode").val();
+		var waCode = $("#waName").val();
+		var acCode = "<%=ac_code%>";
+		
+		$.ajax(
+		{
+		  type: "GET"
+		, url: "maxquantity.do"
+		, data: {pr_code: prCode, ac_code: acCode, wa_code: waCode}
+		, success: function (args)
+		{
+			
+			
+			$("#outQuantity").attr("placeholder", "출고 가능 수량 : "+ args);
+		}
+		,error: function(error) 
+		{
+            alert("오류 발생");
+		}
+		});
+	}
 
 </script>
 
@@ -115,23 +144,18 @@
 					        			</td>
 					        			<td>
 					        				출고 창고
-								            <select id="waName" class="form-control" name="wa_code">
-								            <%-- 
+							            	<select id="waName" class="form-control" name="wa_code" onchange="maxQuantityChange()">
 												<option selected="selected">-출고 창고 선택-</option>
-												<c:forEach var="wa" items="${waList }">
-													<option value="${wa.wa_code }">${wa.wa_name}</option>
-												</c:forEach>
-												 --%>
 											</select>
 					        			</td>
 					        		</tr>
 					        		<tr>
 					        			<td>
 					        				출고 수량
-					            			<input type="text" class="form-control" id="inQuantity" name="out_quantity" placeholder="출고 수량을 입력해주세요">
+					            			<input type="text" class="form-control" id="outQuantity" name="out_quantity" placeholder="출고 수량을 입력해주세요">
 					        			</td>
 					        			<td>
-					        				출고(예정) 일자
+					        				출고 일자
 					            			<input type="text" class="form-control" id="datepicker3" name="out_date">
 					        			</td>
 					        		</tr>

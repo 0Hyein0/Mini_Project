@@ -13,21 +13,26 @@
 	String result = "";
 	
 	// 제이슨 형태로 구성
-	for (StockListDTO warehouse : warehouseList) 
+	if(!warehouseList.isEmpty())
 	{
-		StringBuffer sb = new StringBuffer();
+		for (StockListDTO warehouse : warehouseList) 
+		{
+			StringBuffer sb = new StringBuffer();
+			
+			sb.append("{\"wa_code\":\"" + warehouse.getWa_code() + "\"");
+			sb.append(",\"wa_name\":\"" + warehouse.getWa_name() + "\"},");
+			
+			result += sb.toString();
+		}
+			
+		// 마지막 컴마 제거
+		result = result.substring(0, result.length()-1);
 		
-		sb.append("{\"wa_code\":\"" + warehouse.getWa_code() + "\"");
-		sb.append(",\"wa_name\":\"" + warehouse.getWa_name() + "\"},");
-		
-		result += sb.toString();
+		// JSON 배열 객체 구성
+		result = "[" + result + "]";
 	}
-		
-	// 마지막 컴마 제거
-	result = result.substring(0, result.length()-1);
-	
-	// JSON 배열 객체 구성
-	result = "[" + result + "]";
+	else
+		result="[]";
 	
 	out.println(result);
 %>

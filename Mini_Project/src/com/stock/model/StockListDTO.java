@@ -2,22 +2,12 @@ package com.stock.model;
 
 public class StockListDTO
 {
-	private String pr_no, pr_code, pr_name, pr_description
+	private String pr_code, pr_name, pr_description
 	, wa_code, wa_name, ac_code, ac_name
 	, in_date, out_date, in_code, out_code
 	, in_description, out_description;
 	
 	private int pr_count, in_quantity, out_quantity, total_in, total_out;
-
-	public String getPr_no()
-	{
-		return pr_no;
-	}
-
-	public void setPr_no(String pr_no)
-	{
-		this.pr_no = pr_no;
-	}
 
 	public String getPr_code()
 	{
