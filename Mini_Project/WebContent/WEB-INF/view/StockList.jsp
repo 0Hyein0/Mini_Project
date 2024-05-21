@@ -31,6 +31,48 @@
     $.datepicker.setDefaults($.datepicker.regional['ko']);
     $( "#datepicker" ).datepicker();
   } );
+  
+  
+  function search()
+  {
+  	var prCode = $("#prCode").val();
+  	var waCode = $("#waCode").val();
+  	var searchDate = $("#datepicker").val();
+  	
+  	$.ajax
+  	({
+  		type: "GET"
+  	  , url: "searchstocklist.do"
+  	  , data: {pr_code: prCode, wa_code: waCode, search_date: searchDate}
+  	  , dataType: "json"
+  	  , success: function(jsonObj)
+  		{
+  			for(var idx=0; idx<jsonObj.length; idx++)
+  			{
+  				var out = "";
+  				
+  				var pr_code = jsonObj[idx].pr_code;
+  				var pr_name = jsonObj[idx].pr_name;
+  				var total_in = jsonObj[idx].total_in;
+  				var total_out = jsonObj[idx].total_out;
+  				var total = total_in - total_out;
+  				
+  				out += "<td>" + pr_code + "</td>";
+  				out += "<td>" + pr_name + "</td>";
+  				out += "<td>" + total_in + "</td>";
+  				out += "<td>" + total_out + "</td>";
+  				out += "<td>" + total + "</td>";
+  			}
+  			
+  			$("#searchStockList").empty();
+  			$("#searchStockList").append(out);
+  		}
+  		, error: function(error)
+  		{
+  			alert(error.reponseText);
+  		}
+  	});
+  }
 </script>
 
 </head>
@@ -44,7 +86,7 @@
 		<div id="content">
 			<div id="content_div">
 				<div id="search_div">
-					<div style="width: 20%;">
+					<div style="width: 25%;">
 						[품번]
 						<select id="prCode" class="form-control">
 							<option selected="selected">-전체 품번-</option>
@@ -53,29 +95,21 @@
 							</c:forEach>
 						</select>
 					</div>
-					<div style="width: 20%;">
+					<div style="width: 25%;">
 						[창고]
-						<select id="waName" class="form-control">
+						<select id="waCode" class="form-control">
 							<option selected="selected">-전체 창고-</option>
 							<c:forEach var="wa" items="${waList }">
 								<option value="${wa.wa_code }">${wa.wa_name}</option>
 							</c:forEach>
 						</select>
 					</div>
-					<div style="width: 20%;">
+					<div style="width: 25%;">
 						[조회 기준 일자]<br>
 						<input type="text" id="datepicker" class="form-control">
 					</div>
-					<div style="width: 20%;">
-						[정렬]
-						<select id="sorting" class="form-control">
-							<option>기본</option>
-							<option>재고 수량 많은 순</option>
-							<option>재고 수량 적은 순</option>
-						</select>
-					</div>
 					<div>
-						<button id="searchBtn">조회</button>
+						<button id="searchBtn" onclick="search()">조회</button>
 					</div>
 				</div>
 				
@@ -89,8 +123,7 @@
 					      	<th scope="col">재고 수량</th>
 				    	</tr>
 				  	</thead>
-				  	<tbody>
-				  	
+				  	<tbody id="searchStockList">
 				  		<c:forEach var="stockList" items="${stockList }">
 				   		<tr>
 			      			<td>${stockList.pr_code }</td>

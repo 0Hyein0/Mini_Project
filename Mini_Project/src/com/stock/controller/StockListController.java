@@ -71,6 +71,23 @@ public class StockListController
 		return "/WEB-INF/view/OutList.jsp";		
 	}
 	
+	// 전체 재고 검색
+	@RequestMapping(value="/searchstocklist.do", method=RequestMethod.GET)
+	public String searchStockList(HttpServletRequest request, ModelMap model
+			,@Param("pr_code")String pr_code, @Param("wa_code")String wa_code
+			,@Param("search_date")String search_date) 
+	{
+		HttpSession session = request.getSession();
+		String ac_code = (String)session.getAttribute("ac_code");
+		
+		IStockListDAO dao = sqlsession.getMapper(IStockListDAO.class);
+		ArrayList<StockListDTO> searchStockList = dao.searchStockList(ac_code, pr_code, wa_code, search_date);
+		
+		model.addAttribute("searchStockList", searchStockList);
+		
+		return "/WEB-INF/view/SearchStockList_ajax.jsp";		
+	}
+	
 	// 입고 내역 검색
 	@RequestMapping(value="/searchinlist.do", method=RequestMethod.GET)
 	public String searchInList(HttpServletRequest request, ModelMap model
@@ -99,7 +116,7 @@ public class StockListController
 		String ac_code = (String)session.getAttribute("ac_code");
 		
 		IStockListDAO dao = sqlsession.getMapper(IStockListDAO.class);
-		ArrayList<StockListDTO> searchOutList = dao.searchInList(ac_code, pr_code, wa_code, start_date, end_date);
+		ArrayList<StockListDTO> searchOutList = dao.searchOutList(ac_code, pr_code, wa_code, start_date, end_date);
 		
 		
 		model.addAttribute("searchOutList", searchOutList);

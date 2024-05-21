@@ -80,6 +80,44 @@
 		WHERE A.AC_CODE = #{ac_code}
 	</select>
 	
+	
+	<select id="searchStockList" resultType="com.stock.model.StockListDTO">
+		<![CDATA[
+			SELECT P.PR_CODE AS PR_CODE, P.PR_NAME AS PR_NAME,
+			       NVL(SUM(DISTINCT_IN.IN_QUANTITY), 0) AS TOTAL_IN,
+			       NVL(SUM(DISTINCT_OUT.OUT_QUANTITY), 0) AS TOTAL_OUT,
+			       W.WA_NAME AS WA_NAME
+			FROM PRODUCTS P
+			JOIN WAREHOUSES W ON EXISTS (
+			    SELECT 1
+			    FROM IN_DATA I
+			    WHERE I.PR_CODE = P.PR_CODE AND I.WA_CODE = W.WA_CODE
+			    AND I.IN_DATE <= TO_DATE(#{search_date}, 'YYYY-MM-DD')
+			    UNION
+			    SELECT 1
+			    FROM OUT_DATA O
+			    WHERE O.PR_CODE = P.PR_CODE AND O.WA_CODE = W.WA_CODE
+			    AND O.OUT_DATE <= TO_DATE(#{search_date}, 'YYYY-MM-DD')
+			)
+			LEFT JOIN (
+			    SELECT PR_CODE, WA_CODE, SUM(IN_QUANTITY) AS IN_QUANTITY
+			    FROM IN_DATA
+			    WHERE IN_DATE <= TO_DATE(#{search_date}, 'YYYY-MM-DD')
+			    GROUP BY PR_CODE, WA_CODE
+			) DISTINCT_IN ON P.PR_CODE = DISTINCT_IN.PR_CODE AND W.WA_CODE = DISTINCT_IN.WA_CODE
+			LEFT JOIN (
+			    SELECT PR_CODE, WA_CODE, SUM(OUT_QUANTITY) AS OUT_QUANTITY
+			    FROM OUT_DATA
+			    WHERE OUT_DATE <= TO_DATE(#{search_date}, 'YYYY-MM-DD')
+			    GROUP BY PR_CODE, WA_CODE
+			) DISTINCT_OUT ON P.PR_CODE = DISTINCT_OUT.PR_CODE AND W.WA_CODE = DISTINCT_OUT.WA_CODE
+			WHERE W.AC_CODE = #{ac_code}
+			AND P.PR_CODE = #{pr_code}
+			AND W.WA_CODE = #{wa_code}
+			GROUP BY P.PR_CODE, P.PR_NAME, W.WA_CODE, W.WA_NAME
+		]]>
+	</select>
+	
 	<select id="searchInList" resultType="com.stock.model.StockListDTO">
 		<![CDATA[
 			SELECT I.IN_CODE AS IN_CODE, I.IN_QUANTITY AS IN_QUANTITY, TO_CHAR(I.IN_DATE, 'YYYY-MM-DD') AS IN_DATE, I.IN_DESCRIPTION AS IN_DESCRIPTION
@@ -96,7 +134,6 @@
 			ORDER BY I.IN_DATE DESC
 		]]>
 	</select>
-	
 	
 	<select id="searchOutList" resultType="com.stock.model.StockListDTO">
 		<![CDATA[
