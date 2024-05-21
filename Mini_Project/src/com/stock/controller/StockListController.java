@@ -1,8 +1,11 @@
 package com.stock.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.stock.model.IStockListDAO;
+import com.stock.model.StockListDTO;
 
 @Controller
 public class StockListController
@@ -18,7 +22,7 @@ public class StockListController
 	@Autowired
 	private SqlSession sqlsession;
 
-	// 재고 조회
+	// 전체 재고 조회
 	@RequestMapping(value="/stocklist.do", method=RequestMethod.GET)
 	public String stockList(HttpServletRequest request, ModelMap model) 
 	{
@@ -28,6 +32,8 @@ public class StockListController
 		IStockListDAO dao = sqlsession.getMapper(IStockListDAO.class);
 		
 		model.addAttribute("stockList", dao.stockList(ac_code));
+		model.addAttribute("waList", dao.waList(ac_code));
+		model.addAttribute("prList", dao.prList(ac_code));
 		
 		return "/WEB-INF/view/StockList.jsp";		
 	}
@@ -46,6 +52,7 @@ public class StockListController
 		model.addAttribute("prList", dao.prList(ac_code));
 		
 		return "/WEB-INF/view/InList.jsp";		
+		
 	}
 	
 	// 출고 내역 조회
@@ -63,4 +70,25 @@ public class StockListController
 		
 		return "/WEB-INF/view/OutList.jsp";		
 	}
+	
+	// 입고 내역 검색
+	@RequestMapping(value="/searchinlist.do", method=RequestMethod.GET)
+	public String searchInList(HttpServletRequest request, ModelMap model
+			,@Param("pr_code")String pr_code, @Param("wa_code")String wa_code
+			,@Param("start_date")String start_date, @Param("end_date")String end_date) 
+	{
+		HttpSession session = request.getSession();
+		String ac_code = (String)session.getAttribute("ac_code");
+		
+		IStockListDAO dao = sqlsession.getMapper(IStockListDAO.class);
+		ArrayList<StockListDTO> searchInList = dao.searchInList(ac_code, pr_code, wa_code, start_date, end_date);
+		
+		
+		model.addAttribute("searchInList", searchInList);
+		
+		return "/WEB-INF/view/SearchInList_ajax.jsp";		
+		
+	}
+	
+	
 }

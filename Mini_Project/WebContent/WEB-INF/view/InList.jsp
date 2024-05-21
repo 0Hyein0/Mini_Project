@@ -26,21 +26,65 @@
 <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/i18n/jquery-ui-i18n.min.js"></script>
 <script>
-  $( function() {
-    $.datepicker.setDefaults($.datepicker.regional['ko']);
-    $( "#datepicker1" ).datepicker();
-  } );
+$( function() 
+	{
+	    $.datepicker.setDefaults($.datepicker.regional['ko']);
+	    $("#datepicker1").datepicker();
+	    $("#datepicker2").datepicker();
+	    $("#datepicker3").datepicker();
+	    $("#startDate").datepicker();
+	    $("#endDate").datepicker();
+  });
   
-  $( function() {
-    $.datepicker.setDefaults($.datepicker.regional['ko']);
-    $( "#datepicker2" ).datepicker();
-  } );
   
-  $( function() {
-    $.datepicker.setDefaults($.datepicker.regional['ko']);
-    $( "#datepicker3" ).datepicker();
-  } );
+function search()
+{
+	var prCode = $("#searchPrCode").val();
+	var waCode = $("#searchWaCode").val();
+	var startDate = $("#startDate").val();
+	var endDate = $("#endDate").val();
+	
+	$.ajax
+	({
+		type: "GET"
+	  , url: "searchinlist.do"
+	  , data: {pr_code: prCode, wa_code: waCode, start_date: startDate, end_date: endDate}
+	  , dataType: "json"
+	  , success: function(jsonObj)
+		{
+			for(var idx=0; idx<jsonObj.length; idx++)
+			{
+				var out = "";
+				
+				var in_code = jsonObj[idx].in_code;
+				var pr_code = jsonObj[idx].pr_code;
+				var pr_name = jsonObj[idx].pr_name;
+				var in_date = jsonObj[idx].in_date;
+				var in_quantity = jsonObj[idx].in_quantity;
+				var in_description = jsonObj[idx].in_description;
+				var wa_name = jsonObj[idx].wa_name;
+				
+				out += "<td>" + in_code + "</td>";
+				out += "<td>" + pr_code + "</td>";
+				out += "<td>" + pr_name + "</td>";
+				out += "<td>" + in_date + "</td>";
+				out += "<td>" + in_quantity + "</td>";
+				out += "<td>" + in_description + "</td>";
+				out += "<td>" + wa_name + "</td>";
+			}
+			
+			$("#searchInList").empty();
+			$("#searchInList").append(out);
+		}
+		, error: function(error)
+		{
+			alert("에러 발생");
+		}
+	});
+}
+  
 </script>
+
 
 
 </head>
@@ -122,7 +166,7 @@
 				<div id="search_div">
 					<div style="width: 20%;">
 						[품번]
-						<select id="prCode" class="form-control">
+						<select id="searchPrCode" class="form-control">
 							<option selected="selected">-전체 품번-</option>
 							<c:forEach var="pr" items="${prList }">
 								<option value="${pr.pr_code }">[${pr.pr_code}] ${pr.pr_name}</option>
@@ -131,7 +175,7 @@
 					</div>
 					<div style="width: 20%;">
 						[입고 창고]
-						<select id="waName" class="form-control">
+						<select id="searchWaCode" class="form-control">
 							<option selected="selected">-전체 창고-</option>
 							<c:forEach var="wa" items="${waList }">
 								<option value="${wa.wa_code }">${wa.wa_name}</option>
@@ -140,14 +184,14 @@
 					</div>
 					<div style="width: 20%;">
 						[조회 시작 일자]<br>
-						<input type="text" id="datepicker1" class="form-control">
+						<input type="text" id="startDate" class="form-control">
 					</div>
 					<div style="width: 20%;">
 						[조회 종료 일자]<br>
-						<input type="text" id="datepicker2" class="form-control">
+						<input type="text" id="endDate" class="form-control">
 					</div>
 					<div>
-						<button style="width: 80px; height: 80px;">조회</button>
+						<button id="searchBtn" onclick="search()">조회</button>
 					</div>
 				</div>
 				
@@ -164,8 +208,7 @@
 					      	<th scope="col">입고 창고</th>
 				    	</tr>
 				  	</thead>
-				  	<tbody>
-				  	
+				  	<tbody id="searchInList">
 				  		<c:forEach var="inList" items="${inList }">
 				   		<tr>
 			      			<td>${inList.in_code }</td>
@@ -179,6 +222,7 @@
 				    	</c:forEach>
 				 	</tbody>
 				</table>
+				
 			</div>
 		</div>
 	</section>

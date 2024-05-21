@@ -7,7 +7,7 @@ public class StockListDTO
 	, in_date, out_date, in_code, out_code
 	, in_description, out_description;
 	
-	private int pr_count, in_quantity, out_quantity, total_in, total_out;
+	private int pr_count, in_quantity, out_quantity, total_in, total_out, count;
 
 	public String getPr_code()
 	{
@@ -188,4 +188,16 @@ public class StockListDTO
 	{
 		this.pr_description = pr_description;
 	}
+
+	public int getCount()
+	{
+		return count;
+	}
+
+	public void setCount(int count)
+	{
+		this.count = count;
+	}
+	
+	
 }

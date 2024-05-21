@@ -10,5 +10,11 @@
 		WHERE AC_CODE = #{ac_code}
 		AND #{ac_pw} = CRYPTPACK.DECRYPT(AC_PW, #{ac_pw})
 	</select>
+	
+	<select id="acName" resultType="String">
+		SELECT AC_NAME
+		FROM ACCOUNTS
+		WHERE AC_CODE = #{ac_code}
+	</select>
 
 </mapper>

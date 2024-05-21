@@ -9,20 +9,6 @@
 	String cp = request.getContextPath();
 	
 	String ac_code = (String)session.getAttribute("ac_code");
-	
-	// select option에 중복 제거
-	List<StockListDTO> stockList = (List<StockListDTO>)request.getAttribute("stockList");
-	
-	// 품번 중복 제거
-	Set<String> uniquePrCode = new LinkedHashSet<>();
-	for(StockListDTO stock : stockList)
-		uniquePrCode.add("[" + stock.getPr_code() + "] " + stock.getPr_name());
-	
-	// 창고 중복 제거
-	Set<String> uniqueWaName = new LinkedHashSet<>();
-	for(StockListDTO stock : stockList)
-		uniqueWaName.add(stock.getWa_name());
-	
 %>
 <!DOCTYPE html>
 <html>
@@ -62,18 +48,18 @@
 						[품번]
 						<select id="prCode" class="form-control">
 							<option selected="selected">-전체 품번-</option>
-							<%for (String prCode : uniquePrCode) {%>
-								<option><%=prCode %></option>
-							<%} %>
+							<c:forEach var="pr" items="${prList }">
+								<option value="${pr.pr_code }">[${pr.pr_code}] ${pr.pr_name}</option>
+							</c:forEach>
 						</select>
 					</div>
 					<div style="width: 20%;">
 						[창고]
 						<select id="waName" class="form-control">
 							<option selected="selected">-전체 창고-</option>
-							<%for (String waName : uniqueWaName) {%>
-								<option><%=waName %></option>	
-							<%} %>
+							<c:forEach var="wa" items="${waList }">
+								<option value="${wa.wa_code }">${wa.wa_name}</option>
+							</c:forEach>
 						</select>
 					</div>
 					<div style="width: 20%;">
@@ -86,11 +72,10 @@
 							<option>기본</option>
 							<option>재고 수량 많은 순</option>
 							<option>재고 수량 적은 순</option>
-							<option>유통기한 임박 순</option>
 						</select>
 					</div>
 					<div>
-						<button style="width: 80px; height: 80px;">조회</button>
+						<button id="searchBtn">조회</button>
 					</div>
 				</div>
 				
@@ -102,7 +87,6 @@
 					      	<th scope="col">입고 수량</th>
 					      	<th scope="col">출고 수량</th>
 					      	<th scope="col">재고 수량</th>
-					      	<th scope="col">창고</th>
 				    	</tr>
 				  	</thead>
 				  	<tbody>
@@ -114,7 +98,6 @@
 			      			<td>${stockList.total_in }</td>
 			      			<td>${stockList.total_out }</td>
 			      			<td>${stockList.total_in - stockList.total_out }</td>
-			      			<td>${stockList.wa_name }</td>
 				    	</tr>
 				    	</c:forEach>
 				 	</tbody>

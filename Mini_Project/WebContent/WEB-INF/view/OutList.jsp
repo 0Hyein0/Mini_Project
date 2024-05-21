@@ -202,7 +202,7 @@
 						<input type="text" id="datepicker2" class="form-control">
 					</div>
 					<div>
-						<button style="width: 80px; height: 80px;">조회</button>
+						<button id="searchBtn">조회</button>
 					</div>
 				</div>
 				

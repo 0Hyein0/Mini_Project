@@ -25,6 +25,8 @@ public class AccountController
 		IAccountDAO dao = sqlsession.getMapper(IAccountDAO.class);
 		
 		String userCode = dao.login(ac_code, ac_pw);
+		String userName = dao.acName(ac_code);
+				
 		String url = "";
 		
 		if(userCode != null && userCode != "")
@@ -32,12 +34,12 @@ public class AccountController
 			HttpSession session = request.getSession();
 			
 			session.setAttribute("ac_code", userCode);
+			session.setAttribute("ac_name", userName);
 			url = "/WEB-INF/view/MainPage.jsp";
 		}
 		else
 			url = "redirect:stock.do";
 			
 		return url;
-		
 	}
 }

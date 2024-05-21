@@ -6,6 +6,14 @@
 	margin: 0 auto;
 }
 
+#searchBtn
+{
+	width: 80px;
+	height: 80px;
+	border-radius: 20px;
+	border: none;
+}
+
 #search_div
 {
 	width: 100%;
