@@ -85,6 +85,53 @@
 	<section>
 		<div id="content">
 			<div id="content_div">
+			
+				<div class="add_data">
+					<button type="button" class="btn add_btn" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">
+						<span>+ 제품 등록</span>
+					</button>
+				</div>
+				
+				<!-- 제품 등록 모달창 -->
+				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				  <div class="modal-dialog modal-dialog-centered">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h1 class="modal-title fs-5" id="exampleModalLabel">제품 등록</h1>
+				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				      </div>
+		       		  <form action="productinsert.do" id="inProductForm" >
+				      	<div class="modal-body">
+					        <div>
+					        	<table>
+					        		<tr>
+					        			<td>
+						        			품번
+								            <input type="text" class="form-control" id="inputPrCode" name="inputPrCode" placeholder="품번을 입력해주세요">
+					        			</td>
+					        			<td>
+						        			품명
+								            <input type="text" class="form-control" id="inputPrName" name="inputPrName" placeholder="품명을 입력해주세요">
+					        			</td>
+					        		</tr>
+					        		<tr>
+					        			<td colspan="2">
+					        				비고
+					            			<textarea class="form-control" id="inputPrDescription" name="inputPrDescription"></textarea>
+					        			</td>
+					        		</tr>
+					        	</table>
+					        </div>
+					      </div>
+					      <div class="modal-footer">
+					        <button type="submit" class="btn btn-primary" id="addBtn">등록하기</button>
+					      </div>
+				        </form>
+				    </div>
+				  </div>
+				</div>
+			
+			
 				<div id="search_div">
 					<div style="width: 25%;">
 						[품번]

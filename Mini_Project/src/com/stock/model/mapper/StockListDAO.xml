@@ -72,7 +72,14 @@
 		WHERE AC_CODE = #{ac_code}
 	</select>
 	
-	<select id="prList" resultType="com.stock.model.StockListDTO">
+	<select id="inPrList" resultType="com.stock.model.StockListDTO">
+		SELECT DISTINCT P.PR_CODE, P.PR_NAME
+		FROM PRODUCTS P
+		JOIN ACCOUNTS A ON P.AC_CODE = P.AC_CODE
+		WHERE A.AC_CODE=#{ac_code}
+	</select>
+	
+	<select id="outPrList" resultType="com.stock.model.StockListDTO">
 		SELECT DISTINCT P.PR_CODE, P.PR_NAME
 		FROM PRODUCTS P JOIN IN_DATA I ON P.PR_CODE = I.PR_CODE
 		JOIN WAREHOUSES W ON I.WA_CODE = W.WA_CODE

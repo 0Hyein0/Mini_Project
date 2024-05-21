@@ -19,7 +19,7 @@ public class AccountController
 	@Autowired
 	private SqlSession sqlsession;
 
-	@RequestMapping(value="/login.do", method=RequestMethod.POST)
+	@RequestMapping(value="/stock.do", method=RequestMethod.POST)
 	public String stockList(HttpServletRequest request, ModelMap model, @Param("ac_code")String ac_code, @Param("ac_pw")String ac_pw) 
 	{
 		IAccountDAO dao = sqlsession.getMapper(IAccountDAO.class);
@@ -35,10 +35,10 @@ public class AccountController
 			
 			session.setAttribute("ac_code", userCode);
 			session.setAttribute("ac_name", userName);
-			url = "/WEB-INF/view/MainPage.jsp";
+			url = "/WEB-INF/view/StockList.jsp";
 		}
 		else
-			url = "redirect:stock.do";
+			url = "redirect:login.do";
 			
 		return url;
 	}

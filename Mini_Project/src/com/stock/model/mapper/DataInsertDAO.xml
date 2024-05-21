@@ -61,4 +61,9 @@
 						  , #{pr_code, javaType=String, jdbcType=VARCHAR, mode=IN})
 	</insert>
 	
+	<insert id="productAdd">
+		INSERT INTO PRODUCTS(PR_CODE, PR_NAME, PR_DESCRIPTION, AC_CODE)
+		VALUES(#{param1}, #{param2}, #{param3}, #{param4})
+	</insert>
+	
 </mapper>

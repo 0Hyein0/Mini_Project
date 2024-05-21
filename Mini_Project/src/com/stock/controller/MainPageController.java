@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class MainPageController
 {
 
-	@RequestMapping(value="/stock.do", method=RequestMethod.GET)
+	@RequestMapping(value="/login.do", method=RequestMethod.GET)
 	public String mainPage(Model model) 
 	{
 		return "/WEB-INF/view/Login.jsp";		

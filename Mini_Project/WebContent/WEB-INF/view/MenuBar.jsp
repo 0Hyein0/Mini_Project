@@ -9,7 +9,7 @@
 %>
 <div class="navbar-expand-lg bg-body-tertiary" style="height: 60px; display: flex; justify-content: space-between; align-items: center; padding-left: 40px; padding-right: 40px;">
 	<div>
-		<a style="font-size: 27px; text-decoration: none; color: black;" href="stock.do">재고 관리 시스템</a>
+		<a style="font-size: 27px; text-decoration: none; color: black;" href="stocklist.do">재고 관리 시스템</a>
 	</div>
 	<div>
 		<button style="border: none; background: none;">
@@ -23,29 +23,10 @@
 
 
 <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px; height: 100%; position: fixed;">
-    <!-- 
-    	<div class="dropdown">
-      <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-        <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-        <strong>mdo</strong>
-      </a>
-      <ul class="dropdown-menu text-small shadow">
-        <li><a class="dropdown-item" href="#">New project...</a></li>
-        <li><a class="dropdown-item" href="#">Settings</a></li>
-        <li><a class="dropdown-item" href="#">Profile</a></li>
-        <li><hr class="dropdown-divider"></li>
-        <li><a class="dropdown-item" href="#">Sign out</a></li>
-      </ul>
+    <div id="name_div">
+    	<%=ac_name %>
     </div>
-     -->	
-    	<hr>
-    
     <ul class="nav nav-pills flex-column mb-auto">
-      <li>
-        <a href="stock.do" class="nav-link link-body-emphasis">
-         Dashboard
-        </a>
-      </li>
       <li>
         <a href="stocklist.do" class="nav-link link-body-emphasis">
           재고 조회

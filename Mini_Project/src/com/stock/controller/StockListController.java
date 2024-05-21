@@ -33,7 +33,7 @@ public class StockListController
 		
 		model.addAttribute("stockList", dao.stockList(ac_code));
 		model.addAttribute("waList", dao.waList(ac_code));
-		model.addAttribute("prList", dao.prList(ac_code));
+		model.addAttribute("prList", dao.inPrList(ac_code));
 		
 		return "/WEB-INF/view/StockList.jsp";		
 	}
@@ -49,7 +49,7 @@ public class StockListController
 		
 		model.addAttribute("inList", dao.inList(ac_code));
 		model.addAttribute("waList", dao.waList(ac_code));
-		model.addAttribute("prList", dao.prList(ac_code));
+		model.addAttribute("prList", dao.inPrList(ac_code));
 		
 		return "/WEB-INF/view/InList.jsp";		
 		
@@ -66,7 +66,7 @@ public class StockListController
 		
 		model.addAttribute("outList", dao.outList(ac_code));
 		model.addAttribute("waList", dao.waList(ac_code));
-		model.addAttribute("prList", dao.prList(ac_code));
+		model.addAttribute("prList", dao.outPrList(ac_code));
 		
 		return "/WEB-INF/view/OutList.jsp";		
 	}

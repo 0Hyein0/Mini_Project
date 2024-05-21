@@ -3,6 +3,7 @@ package com.stock.controller;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
@@ -78,6 +79,21 @@ public class DataInsertController
 		dao.outAdd(dto);
 		
 		return "redirect:outlist.do";
+	}
+	
+	// 제품 등록
+	@RequestMapping(value="/productinsert.do", method=RequestMethod.GET)
+	public String productAdd(HttpServletRequest request, @Param("pr_name")String inputPrName
+			, @Param("pr_description")String inputPrDescription, @Param("pr_code") String inputPrCode) 
+	{
+		HttpSession session = request.getSession();
+		String ac_code = (String)session.getAttribute("ac_code");
+		
+		IDataInsertDAO dao = sqlsession.getMapper(IDataInsertDAO.class);
+		
+		dao.productAdd(inputPrCode, inputPrName, inputPrDescription, ac_code);
+		
+		return "redirect:stocklist.do";
 	}
 	
 }
