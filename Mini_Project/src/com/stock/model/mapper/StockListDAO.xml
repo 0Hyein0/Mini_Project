@@ -91,8 +91,27 @@
 			WHERE W.AC_CODE = #{param1}
 			AND I.PR_CODE = #{param2}
 			AND W.WA_CODE = #{param3}
-			AND I.IN_DATE >= TO_DATE(#{param4}, 'YYYY-MM-DD') AND I.IN_DATE <= TO_DATE(#{param5}, 'YYYY-MM-DD')
+			AND I.IN_DATE >= TO_DATE(#{param4}, 'YYYY-MM-DD')
+			AND I.IN_DATE <= TO_DATE(#{param5}, 'YYYY-MM-DD')
 			ORDER BY I.IN_DATE DESC
+		]]>
+	</select>
+	
+	
+	<select id="searchOutList" resultType="com.stock.model.StockListDTO">
+		<![CDATA[
+			SELECT O.OUT_CODE AS OUT_CODE, O.OUT_QUANTITY AS OUT_QUANTITY, TO_CHAR(O.OUT_DATE, 'YYYY-MM-DD') AS OUT_DATE, O.OUT_DESCRIPTION AS OUT_DESCRIPTION
+			, W.WA_NAME AS WA_NAME, P.PR_CODE AS PR_CODE, P.PR_NAME AS PR_NAME, P.PR_DESCRIPTION AS PR_DESCRIPTION
+			FROM OUT_DATA O JOIN PRODUCTS P
+			ON O.PR_CODE = P.PR_CODE
+			JOIN WAREHOUSES W
+			ON O.WA_CODE = W.WA_CODE
+			WHERE W.AC_CODE = #{param1}
+			AND O.PR_CODE = #{param2}
+			AND W.WA_CODE = #{param3}
+			AND O.OUT_DATE >= TO_DATE(#{param4}, 'YYYY-MM-DD')
+			AND O.OUT_DATE <= TO_DATE(#{param5}, 'YYYY-MM-DD')
+			ORDER BY O.OUT_DATE DESC
 		]]>
 	</select>
 

@@ -44,6 +44,8 @@ function search()
 	var startDate = $("#startDate").val();
 	var endDate = $("#endDate").val();
 	
+	alert(prCode+waCode+startDate+endDate);
+	
 	$.ajax
 	({
 		type: "GET"
