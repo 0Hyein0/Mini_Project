@@ -18,5 +18,6 @@ public interface IStockListDAO
 	public ArrayList<StockListDTO> searchInList(String ac_code, String pr_code, String wa_code, String start_date, String end_date);	// 입고 내역 검색
 	public ArrayList<StockListDTO> searchOutList(String ac_code, String pr_code, String wa_code, String start_date, String end_date);	// 출고 내역 검색
 	
+	public ArrayList<StockListDTO> inListDetail(String in_code);
 }
 

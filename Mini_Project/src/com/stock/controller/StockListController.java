@@ -118,11 +118,21 @@ public class StockListController
 		IStockListDAO dao = sqlsession.getMapper(IStockListDAO.class);
 		ArrayList<StockListDTO> searchOutList = dao.searchOutList(ac_code, pr_code, wa_code, start_date, end_date);
 		
-		
 		model.addAttribute("searchOutList", searchOutList);
 		
 		return "/WEB-INF/view/SearchOutList_ajax.jsp";		
+	}
+	
+	// 입고 내역 디테일 조회
+	@RequestMapping(value="/inlistdetail.do", method=RequestMethod.GET)
+	public String inListDetail(ModelMap model, String in_code)
+	{
+		IStockListDAO dao = sqlsession.getMapper(IStockListDAO.class);
+		ArrayList<StockListDTO> inListDetail = dao.inListDetail(in_code);
 		
+		model.addAttribute("inListDetail", inListDetail);
+				
+		return "/WEB-INF/view/InListDetail.jsp";
 	}
 	
 	

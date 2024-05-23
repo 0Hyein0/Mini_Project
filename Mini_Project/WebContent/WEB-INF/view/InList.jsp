@@ -213,7 +213,7 @@ function search()
 				  	<tbody id="searchInList">
 				  		<c:forEach var="inList" items="${inList }">
 				   		<tr>
-			      			<td>${inList.in_code }</td>
+			      			<td><a href="inlistdetail.do?in_code=${inList.in_code }">${inList.in_code }</a></td>
 			      			<td>${inList.pr_code }</td>
 			      			<td>${inList.pr_name }</td>
 			      			<td>${inList.in_date }</td>
